@@ -1,0 +1,97 @@
+%!TEX program = xelatex
+% My template is largely inspired from scott's template.
+% Scott's letterhead template. Requires that Miami logo and signature file be
+% installed within the LaTeX directory structure. The "letter" class is used
+% because it allows for spacing between paragraphs, but properly line breaks at
+% the end of paragraphs (the articles class tends to avoid full lines at the
+% ends of paragraphs, for some reason).
+
+\documentclass[$size$]{letter}
+\usepackage[a4paper,margin=1in]{geometry}
+
+\usepackage{fixltx2e}
+
+% Adds microtypography features: character protrusion, for XeTeX.
+\usepackage{microtype}
+
+% Allows links.
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[xetex, bookmarks, colorlinks, breaklinks]{hyperref}
+\hypersetup{colorlinks=true, urlcolor=NavyBlue, linkcolor=NavyBlue}
+
+\urlstyle{rm}
+
+\frenchspacing{}        % Remove extra spaces after periods.
+\pagestyle{empty}       % Remove page numbers.
+
+\usepackage{fontspec}
+\defaultfontfeatures{Mapping=tex-text}  % Sets quotation marks.
+\setromanfont{Linux Libertine O}
+\setsansfont[BoldFont={Myriad Pro}]{Myriad Pro}
+\setmonofont[Scale=MatchLowercase]{Fira Mono}
+
+% From default template
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\newcommand\shyp{\-}
+
+\newcommand{\header}[0]{
+    {\hypersetup{hidelinks}
+    \noindent
+    \parbox[b][0.625in][t]{6.5in}{
+        \vspace{-0.375in}
+        \parbox[b][0.625in][t]{3.74in}
+            {\href{http://github.com/tuxador}
+            {\includegraphics{/images/logoEH1.jpg}}}\hfill
+        \parbox[b][0.625in][t]{1.72in}{
+            \setlength{\baselineskip}{9pt}
+            \fontsize{7pt}{7pt}{
+                \fontspec{Myriad Pro}
+                \href{http://tuxador.github.io}{\textbf{C.\ Dr YAHYAOUI Mohamed Kaddour}}\\
+                \href{http://www.eh-drbenzerdjeb.com}{Department of Cardiology %
+                    }\vspace{6pt}\\
+                651 E. High St.\\
+                Oxford, Ohio 45056-1465\\
+                (513) 529-1731\\
+                (513) 529-5715 Fax\\
+                \href{mailto:scott.hartley@miamioh.edu}{scott.hartley@miamioh.edu}
+                }
+            }
+        }}
+    }
+
+$if(draft)$
+\usepackage{draftwatermark}
+\SetWatermarkLightness{0.9}
+$endif$
+
+\begin{document}
+
+\header
+
+$body$
+
+$if(sig.include)$
+    \begin{minipage}[t]{6.5in}
+    Sincerely,\\
+    $if(sig.sign)$
+        \vspace{-0.2in}\includegraphics{/Users/hartlecs/.pandoc/images/sig}
+    $else$
+        \\
+    $endif$
+    \\
+    C. Scott Hartley\\
+    $sig.post$
+    \end{minipage}
+$endif$
+
+$if(cc)$
+    cc: $for(cc)$$cc$$sep$, $endfor$
+$endif$
+
+$if(ps)$
+    $ps$
+$endif$
+
+\end{document}
